@@ -8,10 +8,18 @@ import { Partners } from './partners';
 import { Promotions } from './promotions';
 import { InitialFeedback } from './forms';
 import { favorites } from './favorites';
+import { persistStore, persistCombineReducers } from 'redux-persist';
+import storage from 'redux-persist/es/storage';
+
+const config = {
+    key: 'root',
+    storage,
+    debug: true
+}
 
 export const ConfigureStore = () => {
     const store = createStore(
-        combineReducers({
+        persistCombineReducers(config, {
             campsites: Campsites,
             comments: Comments,
              partners: Partners,
@@ -27,5 +35,7 @@ export const ConfigureStore = () => {
         applyMiddleware(thunk, logger)
     );
 
-    return store;
-}
+    const persistor = persistStore(store);
+
+    return { persistor, store };
+};
