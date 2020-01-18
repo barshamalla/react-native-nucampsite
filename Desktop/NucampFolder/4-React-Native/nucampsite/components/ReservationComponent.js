@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, 
-    Picker, Switch, Button, Modal } from 'react-native';
+import { Text, View, StyleSheet, 
+    Picker, Switch, Button, Modal, ScrollView ,Alert} from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import * as Animatable from 'react-native-animatable';
+import { Card } from 'react-native-elements';
 
 class Reservation extends Component {
 
@@ -12,20 +14,56 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: '',
-            showModal: false
+            //showModal: false
         };
     }
 
     static navigationOptions = {
         title: 'Reserve Campsite'
     }
-    toggleModal() {
-        this.setState({showModal: !this.state.showModal});
-    }
+    // toggleModal() {
+    //     this.setState({showModal: !this.state.showModal});
+    // }
 
     handleReservation() {
-        console.log(JSON.stringify(this.state));
-        this.toggleModal();
+        //console.log(JSON.stringify(this.state));
+        //this.toggleModal();
+       
+        Alert.alert(
+            'Begin Search?',
+            'Number of Campers: '  +  this.state.campers + "\n\n" +
+            'Hike In? ' + this.state.hikeIn + "\n\n " +
+            'Date: ' + this.state.date,
+            [
+                { 
+                    text: 'Cancel', 
+                    onPress: () => this.resetForm(),
+                    style: ' cancel'
+                },
+                {
+                    text: 'OK',
+                    onPress: () => this.resetForm()
+                }
+            ],
+            { cancelable: false }
+        );
+        // Alert.alert(
+        //     'Add Favorite',
+        //     'Are you sure you wish to add ' + campsite.name + ' to favorites?',
+        //     [
+        //         {
+        //             text: 'Cancel',
+        //             style: 'cancel',
+        //             onPress: () => console.log('Cancel Pressed')
+        //         },
+        //         {
+        //             text: 'OK',
+        //             onPress: () => props.favorite ?
+        //                 console.log('Already set as a favorite') : props.markFavorite()
+        //         }
+        //     ],
+        //     { cancelable: false }
+        // );
     }
 
     resetForm() {
@@ -33,14 +71,20 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: '',
-            showModal: false
+            //showModal: false
         });
     }
 
     
     render() {
         return (
-            <ScrollView>
+                
+            <Animatable.View
+            animation='zoomInUp' 
+            duration={2000} 
+            delay={1000}
+             >
+              
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Campers</Text>
                     <Picker
@@ -91,13 +135,19 @@ class Reservation extends Component {
                 </View>
                 <View style={styles.formRow}>
                     <Button
-                        onPress={() => this.handleReservation()}
+                        onPress={() => 
+                            this.handleReservation()}
+                        
+            //updated till here
+                        
+                        
+                    
                         title='Search'
                         color='#5637DD'
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
-                <Modal
+                {/* <Modal
                     animationType={'slide'}
                     transparent={false}
                     visible={this.state.showModal}
@@ -116,8 +166,10 @@ class Reservation extends Component {
                             title='Close'
                         />
                     </View>
-                </Modal>
-            </ScrollView>
+                </Modal> */}
+              
+            </Animatable.View>
+            
         );
     }
 }
