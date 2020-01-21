@@ -14,20 +14,16 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: '',
-            //showModal: false
+            
         };
     }
 
     static navigationOptions = {
         title: 'Reserve Campsite'
     }
-    // toggleModal() {
-    //     this.setState({showModal: !this.state.showModal});
-    // }
+    
 
     handleReservation() {
-        //console.log(JSON.stringify(this.state));
-        //this.toggleModal();
        
         Alert.alert(
             'Begin Search?',
@@ -47,23 +43,7 @@ class Reservation extends Component {
             ],
             { cancelable: false }
         );
-        // Alert.alert(
-        //     'Add Favorite',
-        //     'Are you sure you wish to add ' + campsite.name + ' to favorites?',
-        //     [
-        //         {
-        //             text: 'Cancel',
-        //             style: 'cancel',
-        //             onPress: () => console.log('Cancel Pressed')
-        //         },
-        //         {
-        //             text: 'OK',
-        //             onPress: () => props.favorite ?
-        //                 console.log('Already set as a favorite') : props.markFavorite()
-        //         }
-        //     ],
-        //     { cancelable: false }
-        // );
+        
     }
 
     resetForm() {
@@ -71,14 +51,13 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: '',
-            //showModal: false
+            
         });
+       
     }
-
-    
+      
     render() {
-        return (
-                
+        return (      
             <Animatable.View
             animation='zoomInUp' 
             duration={2000} 
@@ -137,36 +116,12 @@ class Reservation extends Component {
                     <Button
                         onPress={() => 
                             this.handleReservation()}
-                        
-            //updated till here
-                        
-                        
                     
                         title='Search'
                         color='#5637DD'
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
-                {/* <Modal
-                    animationType={'slide'}
-                    transparent={false}
-                    visible={this.state.showModal}
-                    onRequestClose={() => this.toggleModal()}>
-                    <View style={styles.modal}>
-                        <Text style={styles.modalTitle}>Search Campsite Reservations</Text>
-                        <Text style={styles.modalText}>Number of Campers: {this.state.campers}</Text>
-                        <Text style={styles.modalText}>Hike-In?: {this.state.hikeIn ? 'Yes' : 'No'}</Text>
-                        <Text style={styles.modalText}>Date: {this.state.date}</Text>
-                        <Button
-                            onPress={() => {
-                                this.toggleModal();
-                                this.resetForm();
-                            }}
-                            color='#5637DD'
-                            title='Close'
-                        />
-                    </View>
-                </Modal> */}
               
             </Animatable.View>
             
