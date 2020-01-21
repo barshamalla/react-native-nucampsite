@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, ScrollView, FlatList } from 'react-native';
-import { Modal, Button, StyleSheet, Alert, PanResponder } from 'react-native';
+import { Modal, Button, StyleSheet, Alert, PanResponder, Share } from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -66,9 +66,17 @@ function RenderCampsite(props) {
             
             return true;
         }
-
-        
     });
+
+    const shareCampsite = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: `${title}: ${message} ${url}`,
+            url: url
+        },{
+            dialogTitle: 'Share ' + title
+        });
+    };
    
     if (campsite) {
         return (
@@ -104,12 +112,19 @@ function RenderCampsite(props) {
                         name={props.favorite ? 'pencil' : 'pencil'}
                         type='font-awesome'
                         color='#5637DD'
-                        alignItems='right'
                         raised
                         reverse
                         onPress={() => props.onShowModal() } 
                         
                     />
+                    <Icon style={styles.cardItem}
+                            name={'share'}
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)} 
+                        />
                     </View>
                     
                 </Card>
